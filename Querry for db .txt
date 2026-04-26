@@ -1,0 +1,111 @@
+CREATE DATABASE IF NOT EXISTS DisasterReliefDB;
+USE DisasterReliefDB;
+
+
+CREATE TABLE Users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    address VARCHAR(255),
+    phone_number VARCHAR(20)
+);
+
+CREATE TABLE Roles (
+    role_id INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(50) NOT NULL,
+    role_description VARCHAR(255)
+);
+
+CREATE TABLE UserRole (
+    userrole_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    role_id INT,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (role_id) REFERENCES Roles(role_id)
+);
+
+CREATE TABLE EmergencyReport (
+    report_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    disaster_type VARCHAR(100),
+    status VARCHAR(50),
+    date_time DATETIME,
+    location_desc VARCHAR(255),
+    latitude DECIMAL(10,7),
+    longitude DECIMAL(10,7),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+
+CREATE TABLE RescueTask (
+    task_id INT AUTO_INCREMENT PRIMARY KEY,
+    report_id INT,
+    task_description VARCHAR(255),
+    assigned_worker_id INT,
+    last_updated DATETIME,
+    remarks VARCHAR(255),
+    task_status VARCHAR(50),
+    assigned_date DATETIME,
+    FOREIGN KEY (report_id) REFERENCES EmergencyReport(report_id),
+    FOREIGN KEY (assigned_worker_id) REFERENCES Users(user_id)
+);
+
+CREATE TABLE Shelter (
+    shelter_id INT AUTO_INCREMENT PRIMARY KEY,
+    shelter_name VARCHAR(150),
+    managed_by VARCHAR(150),
+    capacity INT,
+    current_occupancy INT,
+    is_active BOOLEAN,
+    last_updated DATETIME,
+    street_no VARCHAR(20),
+    street_name VARCHAR(150),
+    shelter_contact VARCHAR(20)
+);
+
+
+CREATE TABLE Resource (
+    resource_id INT AUTO_INCREMENT PRIMARY KEY,
+    resource_quantity INT,
+    resource_desc VARCHAR(255),
+    resource_expiry_date DATE,
+    last_updated DATETIME,
+    resource_availability_status VARCHAR(50),
+    resource_type VARCHAR(100),
+    distribution_location_address VARCHAR(255),
+    ngo_id INT,
+    FOREIGN KEY (ngo_id) REFERENCES Users(user_id)
+);
+
+
+CREATE TABLE ResourceDistribution (
+    distribution_id INT AUTO_INCREMENT PRIMARY KEY,
+    resource_id INT,
+    shelter_id INT,
+    quantity_distributed INT,
+    date_distributed DATETIME,
+    requested_at DATETIME,
+    dispatched_at DATETIME,
+    delivered_at DATETIME,
+    assigned_to INT,
+    status VARCHAR(50),
+    remarks VARCHAR(255),
+    FOREIGN KEY (resource_id) REFERENCES Resource(resource_id),
+    FOREIGN KEY (shelter_id) REFERENCES Shelter(shelter_id),
+    FOREIGN KEY (assigned_to) REFERENCES Users(user_id)
+);
+
+
+CREATE TABLE Notification (
+    notification_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(150),
+    message TEXT,
+    datetime_sent DATETIME,
+    is_active BOOLEAN,
+    created_by INT,
+    FOREIGN KEY (created_by) REFERENCES Users(user_id)
+);
+
+
+

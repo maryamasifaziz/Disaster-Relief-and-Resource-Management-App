@@ -1,0 +1,45 @@
+Project Requirment 
+.	VS Code
+.	postman
+.	android studio
+.	node 
+.	MySQL Oracle
+
+Disaster Relief & Resource Management App
+1. Introduction & Brief Description
+Natural disasters such as floods and earthquakes cause communication breakdowns, leaving citizens stranded and slowing down rescue operations. NGOs and government agencies often face challenges in distributing resources efficiently. Our proposed Disaster Relief & Resource Management Platform focuses on the database backbone of such a system. The database will store information about users, emergency reports, shelters, rescue tasks, resources, and alerts. It will provide structured storage and retrieval of disaster-related data, enabling better coordination among citizens, rescue workers, NGOs, and government agencies.
+2. System Functions
+The system will support the following database-oriented functions:
+Authentication System
+•	Store all users in the Users table.
+•	Role-based access using a Roles table (Citizen, Rescue Worker, NGO, Government).
+•	Simple login simulation.
+Emergency Reporting
+•	Citizens submit reports stored in the EmergencyReports table (disaster type, location, status, citizen_id).
+•	Rescue workers can update status (e.g., Pending → In Progress → Resolved).
+Shelter Management
+•	Shelters table stores shelter info (name, location, capacity, current occupancy).
+•	Queries to check shelter availability.
+Rescue Coordination
+•	RescueTasks table links RescueWorker → EmergencyReport.
+•	Workers can update assigned tasks.
+Resource Management
+•	NGOs register donations in the Resources table (type, quantity, availability).
+•	Track distribution in the ResourceDistribution table.
+Alerts & Notifications
+•	Notifications table stores official government alerts/messages.
+•	Displayed to citizens on dashboard.
+Analytics & Reporting
+•	Queries to support decision-making
+•	Total emergencies by type.
+•	Shelters with highest occupancy.
+•	Resources allocated per region.
+
+3. Front-End & Back-End Technologies
+Front-End: Flutter or React Native
+Back-End: Node.js + Express 
+Database: MySQL in Oracle
+
+
+
+
